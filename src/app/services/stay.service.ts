@@ -4,6 +4,7 @@ import { catchError, retry, tap, map, distinctUntilChanged } from 'rxjs/operator
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { storageService } from './async-storage.service';
 import { FilterBy, Stay } from '../models/stay.model';
+import premadeStays from 'src/assets/data/premade.stays';
 const ENTITY = 'stays'
 
 @Injectable({
@@ -106,8 +107,7 @@ export class StayService {
   }
 
   private async _createStays() {
-    const stays = await (await fetch('../assets/data/stay.json')).json()
-    localStorage.setItem(ENTITY, JSON.stringify(stays))
+    localStorage.setItem(ENTITY, JSON.stringify(premadeStays))
   }
 
   private _handleError(err: HttpErrorResponse) {
