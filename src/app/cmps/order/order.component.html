@@ -1,0 +1,50 @@
+<section *ngIf="stay" class='order'>
+    <article class="order-top flex justify-between">
+        <span class="top-price bold">${{ stay.price | localize:0:0:0 }}</span>
+        <rate-and-rev [reviews]="stay.reviews"></rate-and-rev>
+    </article>
+    <article class="user-input">
+        <div class="dates flex" (click)="showDatePicker = !showDatePicker">
+            <button class="btn-input checkin flex column">
+                <span class="title">check-in</span>
+                <span [class.empty]="!range.start">{{ range.start | date: 'M/d/y' }}</span>
+            </button>
+            <button class="btn-input flex column">
+                <span class="title">check-out</span>
+                <span [class.empty]="!range.end">{{ range.end | date: 'M/d/y' }}</span>
+            </button>
+            <date-picker *ngIf="showDatePicker"
+                [header]="{ title: (nightsTxt() || 'Select dates'), subtitle: ('subtitle' || 'Add your travel dates for exact pricing') }"
+                [footer]="{ clear: true, close: true}" (close)="showDatePicker = false" (clear)="onDateClear()"
+                (change)="onDateChange($event)"></date-picker>
+        </div>
+        <button class="guest-input flex justify-between" (click)="showGuestPicker = !showGuestPicker">
+            <div class="guests flex column">
+                <span class="title">guests</span>
+                <span>{{ countMap | guests }}</span>
+            </div>
+            <div class="svg-down" [class.open]="showGuestPicker">
+                <my-svg [iconSize]="'1rem'" [iconName]="'down'" ></my-svg>
+            </div>
+        </button>
+        <guest-picker *ngIf="showGuestPicker" (change)="updateQuery($event)" (close)="showGuestPicker = false" [capacity]="stay.capacity" [footer]="{ close: true }"></guest-picker>
+    </article>
+    <fancy-btn [txt]="range.start && range.end ? 'Reserve' : 'Check availability'" (click)="onReserve()"></fancy-btn>
+    <article class="price" *ngIf="nights()">
+        <div class="notify">You won't be charged yet</div>
+        <div class="price-calc shadow">
+            <div class="flex justify-between">
+                <span class="underline">${{ stay.price | localize:0:0:0 }} x {{ nightsTxt() }}</span>
+                <span>${{ priceNights() | localize:0:0:0 }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="underline">Airbnb service fee</span>
+                <span>${{ priceNights() * 14 / 100 | localize:0:0:0 }}</span>
+            </div>
+        </div>
+        <div class="bold flex justify-between">
+            <span class="bold">Total</span>
+            <span class="bold">${{ priceNights() * 114 / 100 | localize:0:0:0 }}</span>
+        </div>
+    </article>
+</section>

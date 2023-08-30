@@ -1,0 +1,4 @@
+<ul class="stay-list" *ngIf="stays">
+    <stay-preview *ngFor="let stay of stays; trackBy:trackById" [stay]="stay">
+    </stay-preview>
+</ul>

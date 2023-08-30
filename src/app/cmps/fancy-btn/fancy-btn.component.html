@@ -1,0 +1,6 @@
+<button class="fancy-btn" (mousemove)="onHover($event)" [style.--content-width]="getContentWidth(content.offsetWidth)" [style.--mouse-x]="posX" [style.--mouse-y]="posY">
+    <div #content class="fancy-btn-content">
+        <mat-icon class="fancy-btn-icon" *ngIf="icon" [svgIcon]="icon" [style.height.px]="iconSize" [style.width.px]="iconSize" [style.font-size.px]="iconSize"></mat-icon>
+        <span *ngIf="txt" class="fancy-btn-txt">{{ txt }}</span>
+    </div>
+</button>

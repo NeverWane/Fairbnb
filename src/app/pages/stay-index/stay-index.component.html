@@ -1,0 +1,3 @@
+<main *ngIf="stays$" class="main-layout stay-index">
+    <stay-list [stays]="stays$ | async"></stay-list>
+</main>

@@ -1,0 +1,29 @@
+.main-layout {
+    display: grid;
+    grid-template-columns: minmax(var(--margin-side), 1fr) minmax(auto, var(--max-width)) minmax(var(--margin-side), 1fr);
+
+    >* {
+        grid-column: 2;
+    }
+
+    .full {
+        grid-column: 1 / -1;
+    }
+
+    &.details, &.book {
+        --margin-side: 24px;
+        --max-width: 1120px;
+    }
+
+    @media (min-width: 744px) {
+        &.details, &.book {
+            --margin-side: 40px
+        }
+    }
+
+    @media (min-width: 1128px) {
+        &.details, &.book {
+            --margin-side: 80px
+        }
+    }
+}

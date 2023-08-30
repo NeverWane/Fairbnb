@@ -1,0 +1,32 @@
+.cmp-rate {
+    margin-inline-start: 0.25rem;
+}
+
+.stay-details {
+
+    .cmp-rate::after {
+        content: '·';
+        margin-inline: calc((2 / 7) * 1em);
+    }
+
+    .order {
+        
+
+        .rate-and-rev {
+            display: flex;
+            align-items: flex-end;
+            height: 1.75rem;
+        }
+
+        .cmp-rate {
+            margin: 0;
+        }
+
+        .cmp-rev {
+            text-decoration: none;
+            font-weight: normal;
+            color: var(--clr1);
+        }
+
+    }
+}

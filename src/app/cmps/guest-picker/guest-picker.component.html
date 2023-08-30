@@ -1,0 +1,79 @@
+<section class="guest-picker">
+    <header *ngIf="showHeader">
+        Guests
+    </header>
+    <span *ngIf="capacity" class="capacity">
+        This place has a maximum of {{ capacity }} guests, not including infants.
+    </span>
+    <ul class="clean-list">
+        <li>
+            <div>
+                <div class="title">Adults</div>
+                <div class="subtitle">Age 13+</div>
+            </div>
+            <div class="stepper">
+                <button class="btn" (click)="changeGuestCount('adult', -1, 1, capacity - countMap['child'])"
+                [class.disable]="countMap['adult'] <= 1">
+                <my-svg [iconName]="'minus'"></my-svg>
+            </button>
+            <div class="counter">{{ countMap['adult'] }}</div>
+            <button class="btn" (click)="changeGuestCount('adult', 1, 1, capacity - countMap['child'])" [class.disable]="countMap['adult'] + countMap['child'] >= capacity">
+                <my-svg [iconName]="'plus'"></my-svg>
+            </button>
+        </div>
+    </li>
+        <li>
+            <div>
+                <div class="title">Children</div>
+                <div class="subtitle">Ages 2-12</div>
+            </div>
+            <div class="stepper">
+                <button class="btn" (click)="changeGuestCount('child', -1, 0, capacity - countMap['adult'])" [class.disable]="!countMap['child']">
+                    <my-svg [iconName]="'minus'"></my-svg>
+                </button>
+                <div class="counter">{{ countMap['child'] }}</div>
+                <button class="btn" (click)="changeGuestCount('child', 1, 0, capacity - countMap['adult'])" [class.disable]="countMap['adult'] + countMap['child'] >= capacity">
+                    <my-svg [iconName]="'plus'"></my-svg>
+                </button>
+            </div>
+        </li>
+        <li>
+            <div>
+                <div class="title">Infants</div>
+                <div class="subtitle">Under 2</div>
+            </div>
+            <div class="stepper">
+                <button class="btn" (click)="changeGuestCount('infant', -1, 0, 5)" [class.disable]="!countMap['infant']">
+                    <my-svg [iconName]="'minus'"></my-svg>
+                </button>
+                <div class="counter">{{ countMap['infant'] }}</div>
+                <button class="btn" (click)="changeGuestCount('infant', 1, 0, 5)" [class.disable]="countMap['infant'] >= 5">
+                    <my-svg [iconName]="'plus'"></my-svg>
+                </button>
+            </div>
+        </li>
+        <li>
+            <div>
+                <div class="title">Pets</div>
+                <div class="bold underline">Bringing a service animal?</div>
+            </div>
+            <div class="stepper">
+                <button class="btn" (click)="changeGuestCount('pet', -1, 0, 5)" [class.disable]="!countMap['pet']">
+                    <my-svg [iconName]="'minus'"></my-svg>
+                </button>
+                <div class="counter">{{ countMap['pet'] }}</div>
+                <button class="btn" (click)="changeGuestCount('pet', 1, 0, 5)" [class.disable]="countMap['pet'] >= 5">
+                    <my-svg [iconName]="'plus'"></my-svg>
+                </button>
+            </div>
+        </li>
+    </ul>
+    <footer *ngIf="footer">
+        <div
+        *ngIf="footer.close"
+        class="btn-close underline"
+        (click)="close.emit()">
+        Close
+        </div>
+    </footer>
+</section>

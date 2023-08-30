@@ -1,0 +1,90 @@
+<section *ngIf="stay$ | async as stay" class="main-layout stay-details details">
+    <section class="top-container full">
+        <section class="header-details">
+            <h1>{{ stay.name }}</h1>
+            <div class="top-details flex justify-between align-end">
+                <div>
+                    <rate-and-rev [zeroPadding]="1" [iconSize]="14" class="header-spacer"
+                        [reviews]="stay.reviews"></rate-and-rev>
+                    <span class="bold underline">{{ stay.loc.city + ', ' + stay.loc.country }}</span>
+                </div>
+                <div>
+                    <button class="btn btn-top underline">
+                        <mat-icon svgIcon="heart" [style.width]="'1rem'" [style.height]="'1rem'"
+                            [style.font-size]="'1rem'"></mat-icon>
+                        <span class="btn-top-txt">Save</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section #photos *ngIf="stay.imgUrls?.length" class="image-gallery">
+            <div *ngFor="let item of [].constructor(5); let i = index" [class.big]="i === 0" [class.small]="i > 0"
+                [class.top]="i < 3">
+                <img [src]="stay.imgUrls[i]" alt="Image">
+            </div>
+        </section>
+    </section>
+    <section class="main-details shadow">
+        <section>
+            <article class="grid-host shadow">
+                <h2>Entire stay hosted by {{ stay.host.fullname }}</h2>
+                <img *ngIf="stay.host.imgUrl" [src]="stay.host.imgUrl" alt="Image">
+                <ol class="clean-list flex align-center">
+                    <li *ngIf="stay.capacity" class="header-spacer">{{ stay.capacity }} guests</li>
+                    <li *ngIf="stay.bedrooms" class="header-spacer"> {{ stay.bedrooms }} bedrooms</li>
+                    <li *ngIf="stay.beds" class="header-spacer"> {{ stay.beds }} beds</li>
+                    <li *ngIf="stay.bathrooms"> {{ stay.bathrooms }} baths</li>
+                </ol>
+            </article>
+            <ul class="notable-features shadow clean-list">
+                <li class="feature">
+                    <my-svg [marginSize]="'1rem'" [iconName]="'Dedicated workspace'" [iconSize]="'1.5rem'"></my-svg>
+                    <div>
+                        <h3>
+                            Dedicated workspace
+                        </h3>
+                        <p>
+                            A room with wifi that is well-suited for working.
+                        </p>
+                    </div>
+                </li>
+                <li class="feature">
+                    <my-svg [marginSize]="'1rem'" [iconName]="'checkin'" [iconSize]="'1.5rem'"></my-svg>
+                    <div>
+                        <h3>
+                            Self check-in
+                        </h3>
+                        <p>
+                            Check yourself in with the lockbox.
+                        </p>
+                    </div>
+                </li>
+                <li class="feature">
+                    <my-svg [marginSize]="'1rem'" [iconName]="'calendar'" [iconSize]="'1.5rem'"></my-svg>
+                    <div>
+                        <h3>
+                            Free cancellation for 48 hours.
+                        </h3>
+                    </div>
+                </li>
+            </ul>
+            <article class="stay-summary shadow">
+                <div class="clamped">
+                    <span id="txt-summary">{{ stay.summary }}</span>
+                </div>
+            </article>
+            <ul #amenities class="amenities clean-list">
+                <h2>What this place offers</h2>
+                <li *ngFor="let item of stay.amenities; let i = index" class="flex align-center amenity" [style.display]="i < 10 ? 'block' : 'none'">
+                    <my-svg [marginSize]="'1rem'" [iconName]="stay.amenities[i]" [iconSize]="'1.5rem'"></my-svg>
+                    {{ stay.amenities[i] }}
+                </li>
+                <button class="btn btn-showall bold" *ngIf="stay.amenities.length > 10">
+                    Show all {{ stay.amenities.length }} amenities
+                </button>
+            </ul>
+        </section>
+        <order #order [stay]="stay"></order>
+    </section>
+    <stay-reviews id="small-reviews" class="small" [reviews]="stay.reviews"></stay-reviews>
+</section>

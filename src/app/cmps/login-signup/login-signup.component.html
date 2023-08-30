@@ -1,0 +1,40 @@
+<section (click)="onClose()" class="backdrop">
+    <section (click)="stopPropagation($event)" class="login-signup main-layout">
+        <header class="full shadow">Login or sign up</header>
+        <form *ngIf="currStage === 'email'" (ngSubmit)="checkEmail()" class="enter-email">
+            <h3>Welcome to Fairbnb</h3>
+            <mat-form-field class="input-email">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [formControl]="email" placeholder="Email" name="email">
+                <mat-error *ngIf="email.hasError('email') && email.value?.length">
+                </mat-error>
+            </mat-form-field>
+            <fancy-btn class="btn-continue" [txt]="'Continue'"></fancy-btn>
+        </form>
+        <form *ngIf="currStage === 'password'" (ngSubmit)="checkPassword()" class="enter-password">
+            <h3>Password</h3>
+            <input [formControl]="password" class="input-password" placeholder="Password" name="password" />
+            <fancy-btn class="btn-password" [txt]="'Sign in'"></fancy-btn>
+        </form>
+        <form *ngIf="currStage === 'signup'" (ngSubmit)="onSignUp()" class="signup">
+            <h3>Sign up</h3>
+            <mat-form-field class="input-first-name">
+                <mat-label>First name</mat-label>
+                <input type="text" matInput [formControl]="firstName" placeholder="First name" name="first">
+            </mat-form-field>
+            <mat-form-field class="input-last-name">
+                <mat-label>Last name</mat-label>
+                <input type="text" matInput [formControl]="lastName" placeholder="Last name" name="last">
+            </mat-form-field>
+            <mat-form-field class="input-email">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [formControl]="email" placeholder="Email" name="email">
+            </mat-form-field>
+            <mat-form-field class="input-password">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput [formControl]="password" placeholder="Password" name="password">
+            </mat-form-field>
+            <fancy-btn class="btn-signup" [txt]="'Agree and continue'"></fancy-btn>
+        </form>
+    </section>
+</section>

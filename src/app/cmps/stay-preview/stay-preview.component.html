@@ -1,0 +1,9 @@
+<a [routerLink]="['stay', stay._id]" class="stay-preview">
+    <img-gallery [stay]="stay"></img-gallery>
+    <section class="preview-details">
+        <div class="clamped bold">{{ stay.loc.city }}, {{ stay.loc.country }}</div>
+        <rate-and-rev class="rate-and-rev" [showRev]="'none'" [reviews]="stay.reviews"></rate-and-rev>
+        <div class="clamped">{{ stay.name }}</div>
+        <div class="clamped"><span class="bold">${{ stay.price | localize:0:0:0 }}</span> night</div>
+    </section>
+</a>

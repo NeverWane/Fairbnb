@@ -1,0 +1,212 @@
+.date-picker {
+    --flex-basis: 256px;
+
+    @media (min-width: 744px) {
+        --min-width: 661px;
+    }
+
+    @media (min-width: 1128px) {
+        --flex-basis: 336px
+    }
+
+    position: absolute;
+    display: grid;
+    top: calc(-1.5rem - 1px);
+    right: calc(-2rem + 1px);
+    min-width: var(--min-width);
+    min-height: 460px;
+    padding: 1.5rem 2rem 1rem;
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 20px;
+    z-index: 10;
+
+    header {
+        align-items: center;
+        height: fit-content;
+
+        h2 {
+            line-height: 1.625rem;
+        }
+
+        .picker-subtitle {
+            font-size: 0.875rem;
+            font-weight: normal;
+            color: var(--clr1);
+            margin-block-start: 0.5rem;
+        }
+
+        .empty {
+            ::before {
+                content: 'Add date';
+            }
+
+            &:focus::before {
+                content: 'MM/DD/YYYY'
+            }
+
+            color: var(--clr1);
+        }
+
+        .date-input {
+            &:empty {
+                &::before {
+                    content: 'Add date';
+                }
+            }
+        }
+
+        .btn-input:focus-within {
+            .date-input:empty::before {
+                content: 'MM/DD/YYYY';
+            }
+        }
+    }
+
+    .picker-footer {
+        display: grid;
+        grid-auto-flow: column;
+        height: 2.125rem;
+        align-items: center;
+        justify-content: end;
+        column-gap: 0.5rem;
+
+        div {
+            border-radius: 0.5rem;
+            font-weight: bold;
+            line-height: 1.125rem;
+            cursor: pointer;
+
+            &.btn-save {
+                &.disabled {
+                    pointer-events: none;
+                    background-color: var(--clrShadow);
+                }
+            }
+
+            &.btn-black {
+                color: white;
+                background: var(--clr0);
+                padding: 0.5rem 1rem;
+
+                &:hover {
+                    background-color: black;
+                }
+            }
+
+            &.btn-clear {
+                color: var(--clr0);
+                padding: 0.5rem;
+
+                &:hover {
+                    background-color: var(--clr5);
+                }
+            }
+        }
+    }
+
+    .btn-modes {
+        position: relative;
+
+        @media (min-width: 1440px) {
+            max-width: 315px;
+        }
+
+        box-shadow: 0px 0px 0px 1px var(--clr2) inset;
+        border-radius: 0.5rem;
+        flex-basis: calc(((100vw - var(--flex-basis)) / 12) * 4 + 1px);
+
+        button {
+            background-color: transparent;
+            text-align: start;
+            border: none;
+            width: 100%;
+            min-height: 3.5rem;
+            font-family: 'Circular';
+            font-size: 0.875rem;
+            overflow: hidden;
+            margin: 1px;
+
+            span {
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding-inline: 0.75rem;
+            }
+
+            .title {
+                text-transform: uppercase;
+                font-size: 0.625rem;
+                font-weight: 800;
+                color: var(--clr0);
+                margin-block-start: 0.625rem;
+                margin-block-end: 0.125rem;
+            }
+
+            &:focus {
+                border-radius: 0.5rem;
+                outline: 1px auto black;
+            }
+        }
+    }
+
+    .custom-day {
+        text-align: center;
+        display: grid;
+        align-items: center;
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+
+    // .custom-day:hover {
+    //     background-color: var(--clr255);
+    // }
+
+    .custom-day.focused {
+        border-radius: 100%;
+        background-color: var(--clr5);
+    }
+
+    .custom-day.range:not(.faded),
+    .custom-day:not(.faded):hover {
+        border: 1px solid var(--clr0);
+        border-radius: 100%;
+        background-color: var(--clr0);
+        color: var(--clr255);
+    }
+
+    .custom-day.faded {
+        background-color: var(--clr5);
+    }
+}
+
+:host.modal {
+    
+    .date-picker {
+        position: fixed;
+        border-radius: 0.75rem 0.75rem 0 0;
+        left: 0;
+        width: 100vw;
+        top: 100%;
+        transition: all 0.4s;
+
+        @media (min-width: 744px) {
+            max-width: var(--min-width);
+            left: 50%;
+            border-radius: 0.75rem;
+            transform: translateX(-50%);
+        }
+    }
+
+    &.open {
+        .date-picker {
+            transform: translateY(-100%);
+            
+            @media (min-width: 744px) {
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+}

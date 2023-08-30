@@ -1,0 +1,100 @@
+:host {
+    --margin-side: 1.5rem;
+
+    .backdrop {
+        pointer-events: none;
+        position: fixed;
+        --bg-opacity: calc(0.75 * 0.75);
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 0%;
+        padding: 2.5rem;
+        opacity: 0;
+        background-color: rgba(32, 32, 32, var(--bg-opacity));
+        z-index: 1000;
+        transition:
+            opacity 0.4s,
+            width 0s 0.4s,
+            height 0s 0.4s;
+    }
+
+    .login-signup {
+        display: grid;
+        position: fixed;
+        border-radius: 0.75rem 0.75rem 0 0;
+        left: 0;
+        width: 100vw;
+        top: 100%;
+        background-color: var(--clr255);
+        transition: all 0.4s;
+
+        @media (min-width: 744px) {
+            max-width: 568px;
+            left: 50%;
+            border-radius: 0.75rem;
+            transform: translateX(-50%);
+        }
+
+        .enter-email {
+            --mdc-filled-text-field-container-color: var(--clr255);
+        }
+
+        header {
+            display: grid;
+            min-height: 3rem;
+            font-size: 1rem;
+            font-weight: 800;
+            text-align: center;
+            align-items: center;
+        }
+
+        .enter-email, .enter-password, .signup {
+            padding-block: 1.5rem 8rem;
+
+            >* {
+                width: 100%;
+            }
+
+            h3 {
+                font-size: 1.375rem;
+                line-height: 1.625rem;
+                margin-block: 0.5rem 1.5rem;
+            }
+
+            .input-email {
+                min-height: 3.5rem;
+            }
+
+            .btn-continue {
+                display: block;
+                margin-block-start: 1rem;
+            }
+        }
+    }
+
+
+    &.open {
+
+        .backdrop {
+            pointer-events: all;
+            opacity: 1;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            transition:
+                opacity 0.4s,
+                width 0s,
+                height 0s;
+        }
+
+        .login-signup {
+            transform: translateY(-100%);
+
+            @media (min-width: 744px) {
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+}

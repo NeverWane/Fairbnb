@@ -1,0 +1,45 @@
+<div (click)="stopPropagation($event)" class="date-picker">
+    <header *ngIf="header" class="flex justify-between">
+        <div class="txt-title flex column">
+            <h2 class="picker-title">{{ header.title }}</h2>
+            <h3 class="picker-subtitle">{{ header.subtitle }}</h3>
+        </div>
+        <div class="btn-modes flex">
+            <button class="btn-input btn-checkin flex column">
+                <span class="title">check-in</span>
+                <span class="date-input" [class.empty]="!range.start">{{ range.start | date:'M/d/y' }}</span>
+            </button>
+            <button class="btn-input btn-checkout flex column">
+                <span class="title">check-out</span>
+                <span class="date-input" [class.empty]="!range.end">{{ range.end | date:'M/d/y' }}</span>
+            </button>
+        </div>
+    </header>
+    <ngb-datepicker [firstDayOfWeek]="7" [displayMonths]="displayMonths()" [navigation]="'arrows'"
+        class="ngb-datepicker" #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2"
+        [dayTemplate]="day"></ngb-datepicker>
+
+
+    <ng-template #day let-date let-focused="focused">
+        <span class="custom-day" [class.range]="isRange(date)"
+            [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+            (mouseleave)="hoveredDate = null">
+            {{ date.day }}
+        </span>
+    </ng-template>
+    <footer *ngIf="footer" class="picker-footer">
+        <div *ngIf="footer.clear" (click)="onClear()" class="btn-clear underline">
+            Clear dates
+        </div>
+        <div *ngIf="footer.close" class="btn-black" (click)="onClose($event)">
+            Close
+        </div>
+        <div
+        *ngIf="footer.save"
+        class="btn-black btn-save"
+        [class.disabled]="!range.start || !range.end"
+        (click)="save.emit(range)">
+        Save
+        </div>
+    </footer>
+</div>

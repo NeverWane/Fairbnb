@@ -1,0 +1,29 @@
+.stay-list {
+    --column-count: 1;
+
+    display: grid;
+    grid-template-columns: repeat(var(--column-count), minmax(auto, 1fr));
+    column-gap: 1.5rem;
+    row-gap: 2.5rem;
+    margin-block-start: 1rem;
+
+    @media (min-width: 551px) {
+        --column-count: 2;
+    }
+
+    @media (min-width: 950px) {
+        --column-count: 3;
+    }
+
+    @media (min-width: 1128px) {
+        --column-count: 4;
+    }
+
+    @media (min-width: 1640px) {
+        --column-count: 5;
+    }
+
+    @media (min-width: 1880px) {
+        --column-count: 6;
+    }
+}

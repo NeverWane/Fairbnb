@@ -1,0 +1,7 @@
+<span *ngIf="reviews?.length" class="rate-and-rev">
+    <span>
+        <mat-icon class="svg-star" svgIcon="star" [style]="style"></mat-icon>
+        <span class="bold cmp-rate">{{ rate }}</span>
+    </span>
+    <span *ngIf="rev" class="bold underline cmp-rev">{{ rev }}</span>
+</span>

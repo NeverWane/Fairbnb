@@ -1,0 +1,34 @@
+<section class="reviews shadow" *ngIf="reviews">
+    <article *ngIf="reviews.length">
+        <h2>
+            <rate-and-rev [iconSize]="16" [reviews]="reviews"></rate-and-rev>
+        </h2>
+        <ul class="review-cats clean-list flex justify-between">
+            <li *ngFor="let cat of categories" class="flex align-center">
+                <div class="cat-title">
+                    {{ cat }}
+                </div>
+                <div class="score" [style.--score]="score(cat)" [style.--scoreTxt]="score(cat) | json"></div>
+            </li>
+        </ul>
+        <ul class="reviews-content clean-list flex">
+            <li *ngFor="let review of getReviews(); let i = index">
+                <img [src]="review.by.imgUrl">
+                <div class="by">
+                    <h3>{{ review.by.fullname }}</h3>
+                    <span>{{ review.at | date: 'MMM y' }}</span>
+                </div>
+                <div class="review" [style.--max-lines]="4" [class.clamped]="isClamped(i)">
+                    <span [id]="'review' + i">
+                        {{ review.txt }}
+                    </span>
+                </div>
+                <div *ngIf="isClamped(i)" class="show bold underline">Show more</div>
+            </li>
+        </ul>
+        <button class="btn btn-showall bold" *ngIf="reviews.length > 6">
+            Show all {{ reviews.length }} reviews
+        </button>
+    </article>
+    <h2 *ngIf="!reviews.length">No reviews (yet)</h2>
+</section>

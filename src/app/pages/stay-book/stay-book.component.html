@@ -1,0 +1,98 @@
+
+<section *ngIf="stay$ | async as stay" class="book">
+    <div class="btn-container">
+        <button class="btn btn-return" (click)="onBack()">
+            <my-svg [iconName]="'down'"></my-svg>
+        </button>
+    </div>
+    <h1>
+        Request to book
+    </h1>
+    <section class="book-content">
+        <article class="shadow">
+            <h2>Your trip</h2>
+            <div class="trip-details flex justify-between">
+                <div class="flex column justify-between">
+                    <h3>Dates</h3>
+                    {{ dates() }}
+                </div>
+                <button (click)="modal = stopPropagation($event) && 'date'" class="btn btn-edit bold underline">Edit</button>
+            </div>
+            <div class="trip-details flex justify-between">
+                <div class="flex column justify-between">
+                    <h3>Guests</h3>
+                    {{ countMap | guests }}
+                </div>
+                <button (click)="modal = 'guest'" class="btn btn-edit bold underline">Edit</button>
+            </div>
+        </article>
+        <article class="sticky-details">
+            <article class="shadow place-details">
+                <img *ngIf="stay.imgUrls && stay.imgUrls[0]" [src]="stay.imgUrls[0]" />
+                <div class="place-desc flex column justify-between">
+                    <div>
+                        <div class="entire">Entire stay</div>
+                        <div class="stay-name">{{ stay.name }}</div>
+                    </div>
+                    <rate-and-rev [reviews]="stay.reviews" [showRev]="'short'"></rate-and-rev>
+                </div>
+            </article>
+            <article>
+                <div class="price-details shadow">
+                    <h2>Price details</h2>
+                    <div class="flex justify-between">
+                        <span>${{ stay.price | localize:2:2 }} x {{ nightsTxt() }}</span>
+                        <span>${{ (stay.price || 0) * (nights() || 0) | localize:2:2 }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="underline">Airbnb service fee</span>
+                        <span>${{ (stay.price || 0) * (nights() || 0) * 14 / 100 | localize:2:2 }}</span>
+                    </div>
+                </div>
+                <div class="bold flex justify-between">
+                    <span class="bold">Total</span>
+                    <span class="bold">${{ (stay.price || 0) * (nights() || 0) * 114 / 100 | localize:2:2 }}</span>
+                </div>
+            </article>
+        </article>
+        <div class="btn-wrapper">
+            Request to book
+            <fancy-btn [txt]="'Request to book'" (click)="createOrder()"></fancy-btn>
+        </div>
+        <section (click)="modal = null" class="backdrop" [class.open]="modal==='date'">
+            <date-picker (click)="stopPropagation($event)"
+            [header]="{ title: nightsTxt(), subtitle: nights() ? stay.bedrooms + ' bedrooms · ' + stay.bathrooms + ' baths' : 'Add your travel dates for exact pricing'}"
+            [footer]="{ clear: true, save: true}" class="modal" [class.open]="modal === 'date'" (close)="modal = null" (change)="onDateChange($event)" (save)="updateDate($event)">
+            </date-picker>
+        </section>
+        <section class="backdrop" (click)="modal = null" [class.open]="modal === 'guest'">
+            <section class="modal-guest" (click)="stopPropagation($event)" [class.open]="modal === 'guest'">
+                <header>Guests</header>
+                <div class="notify">This place has a maximum of {{ stay.capacity }} guests. not including infants.
+                </div>
+                <guest-picker [capacity]="stay.capacity" class="modal" (change)="updateCounts($event)"></guest-picker>
+                <footer class="full">
+                    <button class="btn btn-cancel bold underline" (click)="modal = null">Cancel</button>
+                    <button class="btn btn-save bold" (click)="updateQuery()">Save</button>
+                </footer>
+            </section>
+        </section>
+        <!-- <section class="modal-edit" :class="{ show: modal }" @click.self="modal = null">
+            <div class="modal-wrapper" :class="{ show: modal }" @click.self="modal = null">
+                <section class="modal-guest" :class="{ show: modal === 'guest' }">
+                    <header>Guests</header>
+                    <div class="notify">This place has a maximum of {{ stay.capacity }} guests. not including infants.
+                    </div>
+                    <GuestPicker :capacity="stay.capacity" @guest-count="updateCounts" />
+                    <footer class="full">
+                        <button class="btn btn-cancel bold underline" @click="modal = null">Cancel</button>
+                        <button class="btn btn-save bold" @click="updateQuery(), (modal = null)">Save</button>
+                    </footer>
+                </section>
+                <DatePicker :columns="2" :range="range" :attributes="attributes"
+                    :header="{ title: nightsTxt, subtitle: subtitle }" :footer="{ clear: true, save: true }"
+                    :class="{ show: modal === 'date' }" @close="modal = null" @date-change="onDateChange" @save-changes="updateQuery" />
+            </div>
+        </section> -->
+    </section>
+</section>

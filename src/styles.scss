@@ -1,0 +1,102 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$fairbnb-primary: mat.define-palette(mat.$indigo-palette);
+$fairbnb-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$fairbnb-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$fairbnb-theme: mat.define-light-theme((color: (primary: $fairbnb-primary,
+        accent: $fairbnb-accent,
+        warn: $fairbnb-warn,
+      )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($fairbnb-theme);
+
+/* You can add global styles to this file, and also import other style files */
+@import url(./assets/styles/basics/_base.scss);
+@import url(./assets/styles/basics/_layout.scss);
+@import url(./assets/styles/basics/_helpers.scss);
+@import url(./assets/styles/setup/_variables.scss);
+@import url(./assets/styles/setup/_typography.scss);
+
+.mat-mdc-form-field-focus-overlay {
+  background-color: var(--clr255);
+}
+
+.mat-mdc-form-field:hover .mat-mdc-form-field-focus-overlay {
+  opacity: 1;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-focus-overlay {
+  opacity: 1;
+}
+
+input[matInput] {
+  background-color: var(--clr255);
+}
+
+.mdc-text-field {
+  box-shadow: rgb(176, 176, 176) 0px 0px 0px 1px inset;
+}
+
+.mat-mdc-form-field-bottom-align {
+  display: none;
+}
+
+
+.ngb-datepicker {
+  font-weight: bold;
+
+  .ngb-dp-weekday {
+    color: var(--clr1);
+    font-size: 0.75rem;
+    font-style: normal;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .ngb-dp-day {
+    display: grid;
+    height: 2.5rem;
+    width: 2.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  [ngbDatepickerDayView].outside {
+    pointer-events: none;
+    text-decoration: line-through;
+    color: var(--clr2);
+    opacity: 1;
+  }
+
+  .ngb-dp-header {
+    margin-block: 2.25rem 0.75rem;
+
+    >* {
+      background-color: transparent;
+    }
+
+    .ngb-dp-month-name {
+      font-size: 1rem;
+      color: var(--clr0);
+    }
+  }
+}
