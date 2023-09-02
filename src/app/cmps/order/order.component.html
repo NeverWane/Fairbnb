@@ -4,7 +4,7 @@
         <rate-and-rev [reviews]="stay.reviews"></rate-and-rev>
     </article>
     <article class="user-input">
-        <div class="dates flex" (click)="showDatePicker = !showDatePicker">
+        <div class="dates flex" (click.stop)="showDatePicker = !showDatePicker">
             <button class="btn-input checkin flex column">
                 <span class="title">check-in</span>
                 <span [class.empty]="!range.start">{{ range.start | date: 'M/d/y' }}</span>
@@ -13,12 +13,12 @@
                 <span class="title">check-out</span>
                 <span [class.empty]="!range.end">{{ range.end | date: 'M/d/y' }}</span>
             </button>
-            <date-picker *ngIf="showDatePicker"
+            <date-picker (click.outside)="showDatePicker = false" click.stop *ngIf="showDatePicker"
                 [header]="{ title: (nightsTxt() || 'Select dates'), subtitle: ('subtitle' || 'Add your travel dates for exact pricing') }"
                 [footer]="{ clear: true, close: true}" (close)="showDatePicker = false" (clear)="onDateClear()"
                 (change)="onDateChange($event)"></date-picker>
         </div>
-        <button class="guest-input flex justify-between" (click)="showGuestPicker = !showGuestPicker">
+        <button class="guest-input flex justify-between" (click.stop)="showGuestPicker = !showGuestPicker">
             <div class="guests flex column">
                 <span class="title">guests</span>
                 <span>{{ countMap | guests }}</span>
@@ -27,7 +27,7 @@
                 <my-svg [iconSize]="'1rem'" [iconName]="'down'" ></my-svg>
             </div>
         </button>
-        <guest-picker *ngIf="showGuestPicker" (change)="updateQuery($event)" (close)="showGuestPicker = false" [capacity]="stay.capacity" [footer]="{ close: true }"></guest-picker>
+        <guest-picker (click.outside)="showGuestPicker = false" *ngIf="showGuestPicker" (change)="updateQuery($event)" (close)="showGuestPicker = false;" [capacity]="stay.capacity" [footer]="{ close: true }"></guest-picker>
     </article>
     <fancy-btn [txt]="range.start && range.end ? 'Reserve' : 'Check availability'" (click)="onReserve()"></fancy-btn>
     <article class="price" *ngIf="nights()">

@@ -52,13 +52,8 @@ export class DatePickerComponent {
     this.change.emit(this.range)
   }
 
-  onClose(ev: MouseEvent) {
-    ev.stopPropagation()
+  onClose() {
     this.close.emit()
-  }
-
-  stopPropagation(ev: MouseEvent) {
-    ev.stopPropagation()
   }
 
   displayMonths() {

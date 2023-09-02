@@ -32,6 +32,7 @@ import { LocalizePipe } from './pipes/localize.pipe';
 import { DatePickerComponent } from './cmps/date-picker/date-picker.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StayBookComponent } from './pages/stay-book/stay-book.component';
+import { ClickDirectives } from './modules/click-directives/click-directives.module';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { StayBookComponent } from './pages/stay-book/stay-book.component';
     MatInputModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ClickDirectives
   ],
   providers: [],
   bootstrap: [AppComponent]

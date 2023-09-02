@@ -1,4 +1,4 @@
-<div (click)="stopPropagation($event)" class="date-picker">
+<div class="date-picker">
     <header *ngIf="header" class="flex justify-between">
         <div class="txt-title flex column">
             <h2 class="picker-title">{{ header.title }}</h2>
@@ -18,8 +18,6 @@
     <ngb-datepicker [firstDayOfWeek]="7" [displayMonths]="displayMonths()" [navigation]="'arrows'"
         class="ngb-datepicker" #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2"
         [dayTemplate]="day"></ngb-datepicker>
-
-
     <ng-template #day let-date let-focused="focused">
         <span class="custom-day" [class.range]="isRange(date)"
             [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
@@ -31,7 +29,7 @@
         <div *ngIf="footer.clear" (click)="onClear()" class="btn-clear underline">
             Clear dates
         </div>
-        <div *ngIf="footer.close" class="btn-black" (click)="onClose($event)">
+        <div *ngIf="footer.close" class="btn-black" (click.stop)="onClose()">
             Close
         </div>
         <div
