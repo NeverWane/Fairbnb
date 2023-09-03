@@ -1,5 +1,5 @@
 <a [routerLink]="['stay', stay._id]" class="stay-preview">
-    <img-gallery [stay]="stay"></img-gallery>
+    <img-gallery [images]="stay.imgUrls"></img-gallery>
     <section class="preview-details">
         <div class="clamped bold">{{ stay.loc.city }}, {{ stay.loc.country }}</div>
         <rate-and-rev class="rate-and-rev" [showRev]="'none'" [reviews]="stay.reviews"></rate-and-rev>

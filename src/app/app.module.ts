@@ -33,6 +33,7 @@ import { DatePickerComponent } from './cmps/date-picker/date-picker.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StayBookComponent } from './pages/stay-book/stay-book.component';
 import { ClickDirectives } from './modules/click-directives/click-directives.module';
+import { EmitRefDirective } from './directives/emit-ref.directive';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ClickDirectives } from './modules/click-directives/click-directives.mod
     LocalizePipe,
     DatePickerComponent,
     StayBookComponent,
+    EmitRefDirective,
   ],
   imports: [
     BrowserModule,

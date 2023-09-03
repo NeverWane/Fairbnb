@@ -1,12 +1,118 @@
+:host {
+    --indicator-size: 6px;
+    --indicator-gap: 2.5px;
+    --indicator-count: 5;
+    --start-idx: 0;
+}
+
 .img-gallery {
     display: grid;
+    position: relative;
     align-self: start;
+    width: 100%;
+    aspect-ratio: 20 / 19;
     border-radius: 0.75rem;
     margin-block-end: 0.75rem;
     overflow: hidden;
 
-    img {
+    .img-container {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 100%;
+        grid-auto-rows: 100%;
+        width: 100%;
         height: 100%;
-        aspect-ratio: 20 / 19;
+        overflow: hidden;
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .nav-indicators {
+        display: grid;
+        grid-auto-flow: column;
+        position: absolute;
+        width: 100%;
+        max-width: calc(var(--indicator-count) * (2 * var(--indicator-gap) + var(--indicator-size)));
+        align-self: end;
+        justify-self: center;
+        padding-block-end: 12px;
+        overflow-x: hidden;
+
+        .indicators-container {
+            display: grid;
+            grid-auto-flow: column;
+            transform: translateX(calc(0px - var(--start-idx) * (2 * var(--indicator-gap) + var(--indicator-size))));
+            transition: 0.2s;
+        }
+
+        .nav-indicator {
+            width: var(--indicator-size);
+            height: var(--indicator-size);
+            margin-inline: var(--indicator-gap);
+            border-radius: 100%;
+            background-color: var(--clr255);
+            opacity: 0.6;
+            scale: calc(4/6);
+            transition: 0.2s;
+
+            &.medium {
+                scale: calc(5/6);
+            }
+
+            &.large {
+                scale: 1;
+            }
+
+            &.active {
+                opacity: 1;
+            }
+        }
+    }
+
+    .carousel-nav {
+        display: grid;
+        grid-auto-flow: column;
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        align-self: center;
+        padding-inline: 0.75rem;
+        justify-content: space-between;
+
+        button {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 100%;
+            background-color: var(--clr255);
+            box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 1px, rgba(0, 0, 0, 0) 0px 0px 0px 4px, rgba(0, 0, 0, 0.18) 0px 2px 4px 0px;
+            opacity: 0.9;
+            transition: 0.25s;
+
+            &:hover {
+                opacity: 1;
+                transform: scale(1.04);
+            }
+
+            &.btn-prev {
+                rotate: 90deg;
+            }
+
+            &.btn-next {
+                rotate: -90deg;
+            }
+
+            &.hide {
+                visibility: hidden;
+            }
+        }
+    }
+
+    &:hover {
+        .carousel-nav {
+            opacity: 1;
+        }
     }
 }

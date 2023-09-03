@@ -1,3 +1,18 @@
 <div class="img-gallery">
-    <img [src]="stay.imgUrls[0]">
+    <div (scrollend)="onScrollEnd($event)" class="img-container">
+        <img *ngFor="let image of images; let i=index" (emitRef)="imgRefs[i] = $event" [src]="image" alt="" class="gallery-img">
+    </div>
+    <nav class="carousel-nav">
+        <button class="btn-prev" [class.hide]="idx <= 0" (click)="onPrev($event)">
+            <my-svg [iconName]="'down'"></my-svg>
+        </button>
+        <button class="btn-next" [class.hide]="idx >= images.length - 1" (click)="onNext($event)">
+            <my-svg [iconName]="'down'"></my-svg>
+        </button>
+    </nav>
+    <footer class="nav-indicators">
+        <div class="indicators-container" [style.--start-idx]="navStartIdx">
+            <div class="nav-indicator" [ngClass]="{ large: checkLarge(i), medium: checkMed(i), active: idx === i }" *ngFor="let image of images; let i=index" (emitRef)="navRefs[i] = $event"></div>
+        </div>
+    </footer>
 </div>
